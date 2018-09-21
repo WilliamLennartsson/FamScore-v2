@@ -97,7 +97,8 @@ function logIn(email, password){
     .then(function(data){
         if (data){
             console.log("logged in");
-            //console.log(data);
+            //console.log('data', data);
+            
 
             //Test functions
             //updateScore('-LMlprvUNCR4n9MmIUiC' , 'kalle', 100)
@@ -106,9 +107,12 @@ function logIn(email, password){
             //removeMission('-LMlprvUNCR4n9MmIUiC', 'vaska');
 
             //console.log('BROOOOR', database.ref().child('email').equalTo(email).repo.repoInfo_);
+            //console.log(database.ref(mainTree).orderByChild('email').equalTo(email));
             console.log(database.ref(mainTree).orderByChild('email').equalTo(email));
-
-            database.ref()
+            var testRef = database.ref(mainTree).orderByChild('email').equalTo(email).once('value', function(snapshot){
+                //console.log("Banan" , snapshot['index_']);
+            })
+            console.log(firebase.auth().currentUser);
             return true;
         } else {
             console.log('Cannot sign in');
@@ -116,6 +120,14 @@ function logIn(email, password){
         }
     })
 }
+
+
+function nyMetod(snapshot){
+    var ref = snapshot.ref;
+    return ref.key;
+}
+
+
 
 // getFamily
 function getFamily(){
